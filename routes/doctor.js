@@ -15,10 +15,10 @@ var con = mysql.createConnection({
 con.connect(function(err) {
   if (err) res.send(err);
   //res.send("Connected!");
-  var sql = "INSERT INTO Persons (LastName, FirstName, Age)VALUES ('Sheeshan', 'Rasha', 21)";
+  var sql = "Select * from Doctor";
   con.query(sql, function (err, result) {
     if (err) res.send(err);
-    res.send("1 record inserted");
+    res.send(result);
   });
 });
 });
@@ -37,7 +37,15 @@ router.post('/addDoctor', function(req, res, next) {
   con.connect(function(err) {
     if (err) res.send(err);
     //res.send("Connected!");
-    var sql = "INSERT INTO Doctor (Name,PhoneNumber,Age,CNIC,Email,Address,Gender)VALUES ('Tauqeer ul Hassan','+92-331-5330709', 37, '3740568164377','tauqeerulhassan45@gmail.com','House No 2, Main Street, Ghori Town Phase 2, Islamabad','M');";
+    var name = req.body.name;
+    var phoneNumber = req.body.phoneNumber;
+    var age = req.body.age;
+    var cnic = req.body.cnic;
+    var email = req.body.email;
+    var address = req.body.address;
+    var gender = req.body.gender;
+    
+    var sql = `INSERT INTO Doctor (Name,PhoneNumber,Age,CNIC,Email,Address,Gender)VALUES ('${name}','${phoneNumber}', ${age}, '${cnic}','${email}','${address}','${gender}');`;
     con.query(sql, function (err, result) {
       if (err) res.send(err);
       res.send(result);

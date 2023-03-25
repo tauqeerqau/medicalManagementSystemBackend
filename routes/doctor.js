@@ -1,7 +1,7 @@
 var express = require('express');
 var mysql = require('mysql');
 var router = express.Router();
-
+const Dto = require('./../utils/dto');
 
 router.get('/getDoctors', function(req, res, next) {
 
@@ -18,7 +18,7 @@ con.connect(function(err) {
   var sql = "Select * from Doctor";
   con.query(sql, function (err, result) {
     if (err) res.send(err);
-    res.send(result);
+    return Dto.sendResponse(res, 200, 'Record Received Successfully',result);
   });
 });
 });
@@ -38,7 +38,7 @@ router.get('/getDoctor', function(req, res, next) {
       var sql = `Select * from Doctor where ID=${id}`;
       con.query(sql, function (err, result) {
         if (err) res.send(err);
-        res.send(result);
+        return Dto.sendResponse(res, 200, 'Record Received Successfully',result);
       });
     });
     });
@@ -58,7 +58,7 @@ router.get('/deleteDoctor', function(req, res, next) {
           var sql = `Delete from Doctor where ID=${id}`;
           con.query(sql, function (err, result) {
             if (err) res.send(err);
-            res.send(result);
+            return Dto.sendResponse(res, 200, 'Record Deleted Successfully');
           });
         });
     });
@@ -87,7 +87,7 @@ router.post('/addDoctor', function(req, res, next) {
     var sql = `INSERT INTO Doctor (Name,PhoneNumber,Age,CNIC,Email,Address,Gender)VALUES ('${name}','${phoneNumber}', ${age}, '${cnic}','${email}','${address}','${gender}');`;
     con.query(sql, function (err, result) {
       if (err) res.send(err);
-      res.send(result);
+      return Dto.sendResponse(res, 200, 'Record Added Successfully');
     });
   });
   });
@@ -124,7 +124,7 @@ router.post('/addDoctor', function(req, res, next) {
       
       con.query(sql, function (err, result) {
         if (err) res.send(err);
-        res.send(result);
+        return Dto.sendResponse(res, 200, 'Record Updated Successfully',result);
       });
     });
     });

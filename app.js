@@ -9,7 +9,8 @@ var usersRouter = require('./routes/users');
 var doctorRouter = require('./routes/doctor');
 var patientRouter = require('./routes/patient');
 var categorytRouter = require('./routes/category');
-var subCategorytRouter = require('./routes/subCategory');
+var subCategoryRouter = require('./routes/subCategory');
+var diseaseRouter = require('./routes/disease');
 
 var app = express();
 
@@ -28,7 +29,8 @@ app.use('/users', usersRouter);
 app.use('/doctor', doctorRouter);
 app.use('/patient', patientRouter);
 app.use('/category', categorytRouter);
-app.use('/subCategory', subCategorytRouter);
+app.use('/subCategory', subCategoryRouter);
+app.use('/disease', diseaseRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

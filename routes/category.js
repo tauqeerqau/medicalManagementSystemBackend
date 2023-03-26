@@ -3,7 +3,7 @@ var mysql = require('mysql');
 var router = express.Router();
 const Dto = require('./../utils/dto');
 
-router.get('/getPatients', function(req, res, next) {
+router.get('/getCategories', function(req, res, next) {
 
 var con = mysql.createConnection({
   host: "localhost",
@@ -15,7 +15,7 @@ var con = mysql.createConnection({
 con.connect(function(err) {
   if (err) res.send(err);
   //res.send("Connected!");
-  var sql = "Select * from Patient";
+  var sql = "Select * from Category";
   con.query(sql, function (err, result) {
     if (err) res.send(err);
     return Dto.sendResponse(res, 200, 'Record Received Successfully',result);
@@ -23,7 +23,7 @@ con.connect(function(err) {
 });
 });
 
-router.get('/getPatient', function(req, res, next) {
+router.get('/getCategory', function(req, res, next) {
     var id = req.query.id;
     var con = mysql.createConnection({
       host: "localhost",
@@ -35,7 +35,7 @@ router.get('/getPatient', function(req, res, next) {
     con.connect(function(err) {
       if (err) res.send(err);
       //res.send("Connected!");
-      var sql = `Select * from Patient where ID=${id}`;
+      var sql = `Select * from Category where ID=${id}`;
       con.query(sql, function (err, result) {
         if (err) res.send(err);
         return Dto.sendResponse(res, 200, 'Record Received Successfully',result);
@@ -43,7 +43,7 @@ router.get('/getPatient', function(req, res, next) {
     });
     });
 
-router.get('/deletePatient', function(req, res, next) {
+router.get('/deleteCategory', function(req, res, next) {
         var id = req.query.id;
         var con = mysql.createConnection({
           host: "localhost",
@@ -55,7 +55,7 @@ router.get('/deletePatient', function(req, res, next) {
         con.connect(function(err) {
           if (err) res.send(err);
           //res.send("Connected!");
-          var sql = `Delete from Patient where ID=${id}`;
+          var sql = `Delete from Category where ID=${id}`;
           con.query(sql, function (err, result) {
             if (err) res.send(err);
             return Dto.sendResponse(res, 200, 'Record Deleted Successfully');
@@ -64,7 +64,7 @@ router.get('/deletePatient', function(req, res, next) {
     });
 
 
-router.post('/addPatient', function(req, res, next) {
+router.post('/addCategory', function(req, res, next) {
 
   var con = mysql.createConnection({
     host: "localhost",
@@ -77,14 +77,9 @@ router.post('/addPatient', function(req, res, next) {
     if (err) res.send(err);
     //res.send("Connected!");
     var name = req.body.name;
-    var fatherName = req.body.fatherName;
-    var phoneNumber = req.body.phoneNumber;
-    var age = req.body.age;
-    var email = req.body.email;
-    var address = req.body.address;
-    var gender = req.body.gender;
+    var description = req.body.description;
     
-    var sql = `INSERT INTO Patient (Name,fatherName,PhoneNumber,Age,Email,Address,Gender)VALUES ('${name}','${fatherName}','${phoneNumber}', ${age},'${email}','${address}','${gender}');`;
+    var sql = `INSERT INTO Category (Name,Description)VALUES ('${name}','${description}');`;
     con.query(sql, function (err, result) {
       if (err) res.send(err);
       return Dto.sendResponse(res, 200, 'Record Added Successfully');
@@ -93,7 +88,7 @@ router.post('/addPatient', function(req, res, next) {
   });
 
 
-  router.post('/updatePatient', function(req, res, next) {
+  router.post('/updateCategory', function(req, res, next) {
 
     var con = mysql.createConnection({
       host: "localhost",
@@ -106,20 +101,10 @@ router.post('/addPatient', function(req, res, next) {
       if (err) res.send(err);
       var id = req.body.id;
       var name = req.body.name;
-      var fatherName = req.body.fatherName;
-      var phoneNumber = req.body.phoneNumber;
-      var age = req.body.age;
-      var email = req.body.email;
-      var address = req.body.address;
-      var gender = req.body.gender;
+      var description = req.body.description;
       
-      var sql = `Update Patient set Name='${name}',
-      fatherName='${fatherName}',
-      PhoneNumber='${phoneNumber}',
-      Age=${age},
-      Email='${email}',
-      Address='${address}',
-      Gender='${gender}'
+      var sql = `Update Category set Name='${name}',
+      Description='${description}'
       where ID = ${id}`;
       
       con.query(sql, function (err, result) {

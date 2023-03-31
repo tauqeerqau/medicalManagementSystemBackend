@@ -11,7 +11,6 @@ var patientRouter = require('./routes/patient');
 var categorytRouter = require('./routes/category');
 var subCategoryRouter = require('./routes/subCategory');
 var diseaseRouter = require('./routes/disease');
-var userRoleRouter = require('./routes/userRole');
 
 var app = express();
 
@@ -32,7 +31,6 @@ app.use('/patient', patientRouter);
 app.use('/category', categorytRouter);
 app.use('/subCategory', subCategoryRouter);
 app.use('/disease', diseaseRouter);
-app.use('/userRole', userRoleRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
